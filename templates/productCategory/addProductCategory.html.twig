@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.categoryId, 'Список категорий', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.categoryId) }}
+        {{ form_widget(form.categoryId, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.categoryId) }}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{{ sendBtn }}</button>
+        <a href="{{ path('product_page') }}" class="btn btn-primary">{{ returnBtn }}</a>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

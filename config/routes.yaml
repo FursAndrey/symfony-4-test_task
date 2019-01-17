@@ -1,0 +1,13 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+#app_lucky_number:
+#    path: /lucky/number
+#    controller: App\Controller\LuckyController::number
+
+#user_page:
+#    path: /user_page
+#    controller: App\Controller\PageController::userPage
+
+app_logout:
+    path: /logout

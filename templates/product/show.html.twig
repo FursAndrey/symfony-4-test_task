@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block navigation %}
+    {% if is_granted('ROLE_PRODUCT_MANAGER') %}
+        <a href="{{ path('create_product') }}" class="btn btn-success">{{ Create }}</a>
+    {% endif %}
+    <a href="{{ path('user_page') }}" class="btn btn-info">{{ ViewUser }}</a>
+    <a href="{{ path('category_page') }}" class="btn btn-info">{{ ViewCategory }}</a>
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ Exit }}</a>
+{% endblock %}
+
+{% block contentTableBody %}
+    {% for item in products %}
+        <tr class="text-center">
+            <td>{{ item.name|capitalize }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+                {% for elem in item.user %}
+                    <p>
+                        {{ elem.nickname }}
+                        {% if is_granted('ROLE_PRODUCT_MANAGER') %} /
+                            <a href="{{ path('delete_product_user', {'userId':  elem.id, 'productId':  item.id }) }}"
+                               class="btn btn-danger">{{ Delete }}</a>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </td>
+            <td>
+                {% for elem in item.category %}
+                    <p>
+                        {{ elem.name }}
+                        {% if is_granted('ROLE_PRODUCT_MANAGER') %} /
+                            <a href="{{ path('delete_product_category', {'categoryId':  elem.id, 'productId':  item.id }) }}"
+                               class="btn btn-danger">{{ Delete }}</a>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </td>
+            <td>
+                {% if is_granted('ROLE_PRODUCT_MANAGER') %}
+                    <p>
+                        <a href="{{ path('update_product', {'id': item.id}) }}" class="btn btn-warning">{{ Update }}</a>
+                        <a href="{{ path('delete_product', {'id': item.id}) }}" class="btn btn-danger">{{ Delete }}</a>
+                    </p>
+                    <p>
+                        <a href="{{ path('add_product_user', {'id': item.id}) }}" class="btn btn-success">{{ AddUser }}</a>
+                    </p>
+                    <a href="{{ path('add_product_category', {'id': item.id}) }}" class="btn btn-success">{{ AddCategory }}</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

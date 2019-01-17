@@ -1,0 +1,22 @@
+{% extends 'user/update.html.twig' %}
+
+{% block createuser %}
+    <div class="form-group">
+        {{ form_label(form.login, 'Логин', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.login) }}
+        {{ form_widget(form.login, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.login) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.plainPassword.first, 'Пароль', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.plainPassword.first) }}
+        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.plainPassword.first) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.plainPassword.second, 'Повтор пароля', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.plainPassword.second) }}
+        {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.plainPassword.second) }}
+    </div>
+{% endblock %}

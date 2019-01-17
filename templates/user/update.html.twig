@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <p>{{ error }}</p>
+
+    {{ form_start(form) }}
+    {% block createuser %}{% endblock %}
+    <div class="form-group">
+        {{ form_label(form.nickname, 'Имя пользователя', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.nickname) }}
+        {{ form_widget(form.nickname, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.nickname) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.email, 'Адрес електронной почты', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.email) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.birthdate, 'Дата рождения', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.birthdate) }}
+        <div class="d-flex justify-content-between">
+            {{ form_widget(form.birthdate.day, { 'attr': {'class': 'form-control col-sm-3 d-inline'} }) }}
+            {{ form_widget(form.birthdate.month, { 'attr': {'class': 'form-control col-sm-4 d-inline'} }) }}
+            {{ form_widget(form.birthdate.year, { 'attr': {'class': 'form-control col-sm-4 d-inline'} }) }}
+        </div>
+        {{ form_help(form.birthdate) }}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{{ sendBtn }}</button>
+        <a href="{{ path('user_page') }}" class="btn btn-primary">{{ returnBtn }}</a>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

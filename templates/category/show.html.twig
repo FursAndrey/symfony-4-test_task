@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block navigation %}
+    {% if is_granted('ROLE_PRODUCT_MANAGER') %}
+        <a href="{{ path('create_category') }}" class="btn btn-success">{{ Create }}</a>
+    {% endif %}
+    <a href="{{ path('user_page') }}" class="btn btn-info">{{ ViewUser }}</a>
+    <a href="{{ path('product_page') }}" class="btn btn-info">{{ ViewProduct }}</a>
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ Exit }}</a>
+{% endblock %}
+
+{% block contentTableBody %}
+    {% for item in category %}
+        <tr class="text-center">
+            <td>{{ item.name|capitalize }}</td>
+            <td>
+                {% for elem in item.product %}
+                    <p>
+                        {{ elem.name }}
+                        {% if is_granted('ROLE_PRODUCT_MANAGER') %} /
+                            <a href="{{ path('delete_category_product', {'categoryId':  item.id, 'productId':  elem.id }) }}"
+                               class="btn btn-danger">{{ Delete }}</a>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </td>
+            <td>
+                {% if is_granted('ROLE_PRODUCT_MANAGER') %}
+                    <p>
+                        <a href="{{ path('delete_category', {'id': item.id}) }}" class="btn btn-danger">{{ Delete }}</a>
+                    </p>
+                    <a href="{{ path('add_category_product', {'id': item.id}) }}" class="btn btn-success">{{ AddProduct }}</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,20 @@
+<html>
+    <body>
+        {% block b1 %}
+            <h3>Page to ROLE_USER</h3>
+        {% endblock %}
+
+        <p>Hello, {{ user }}!</p>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p>Email: {{ app.user.email }}</p>
+        {% endif %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>Admin text</p>
+        {% endif %}
+
+        <p><a href="{{ path('app_logout') }}">Exit</a></p>
+        Lucky number: {{ number }}.
+    </body>
+</html>

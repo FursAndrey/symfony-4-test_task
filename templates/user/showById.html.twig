@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block navigation %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('user_registration') }}" class="btn btn-success">{{ Create }}</a>
+    {% endif %}
+    <a href="{{ path('user_page') }}" class="btn btn-info">{{ ViewUser }}</a>
+    <a href="{{ path('product_page') }}" class="btn btn-info">{{ View }}</a>
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ Exit }}</a>
+{% endblock %}
+
+{% block contentTableBody %}
+    <tr class="text-center">
+        <td>
+              {{ user.nickname|capitalize }}
+        </td>
+        <td>{{ user.email }}</td>
+        <td>
+            {% for elem in user.phone %}
+                <p>
+                    {{ elem.phone }} /
+                    <a href="{{ path('delete_phone', {'id':  elem.id }) }}" class="btn btn-danger">{{ Delete }}</a>
+                </p>
+            {% endfor %}
+        </td>
+        <td>{{ user.birthdate.date|date("d-m-Y") }}</td>
+        <td>
+            {% for elem in user.product %}
+                <p>
+                    {{ elem.name }} /
+                    <a href="{{ path('delete_user_product', {'userId':  user.id, 'productId':  elem.id }) }}"
+                       class="btn btn-danger">{{ Delete }}</a>
+                </p>
+            {% endfor %}
+        </td>
+        <td>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('update_role', {'id':  user.id }) }}" class="btn btn-warning">{{ Update }}</a><br/>
+            {% endif %}
+            {{ user.role }}
+        </td>
+        <td>
+            <p>
+                <a href="{{ path('update_user', {'id': user.id}) }}" class="btn btn-warning">{{ Update }}</a>
+            </p>
+            <p>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('delete_user', {'id': user.id}) }}" class="btn btn-danger">{{ Delete }}</a>
+                {% endif %}
+            </p>
+            <p>
+                <a href="{{ path('create_phone', {'id': user.id}) }}" class="btn btn-success">{{ AddPhone }}</a>
+            </p>
+            <a href="{{ path('add_user_product', {'id': user.id}) }}" class="btn btn-success">{{ AddProduct }}</a>
+        </td>
+    </tr>
+{% endblock %}

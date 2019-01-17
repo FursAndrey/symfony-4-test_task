@@ -1,0 +1,10 @@
+{% extends 'product/update.html.twig' %}
+
+{% block createuser %}
+    <div class="form-group">
+        {{ form_label(form.name, 'Название продукта', {'label_attr': {'class': 'text-success p-3 h5' }}) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_help(form.name) }}
+    </div>
+{% endblock %}
